@@ -1,0 +1,25 @@
+{
+  "name": "lambda-uploader-to-s3",
+  "version": "1.0.0",
+  "description": "AWS ApiGateway - Uploading Files. Multipart/form-data.",
+  "main": "index.js",
+  "scripts": {
+    "test": "upload2s3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thecvit2328/lambda-uploader-to-s3.git"
+  },
+  "keywords": [
+    "uploader"
+  ],
+  "author": "thecvit2328",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thecvit2328/lambda-uploader-to-s3/issues"
+  },
+  "homepage": "https://github.com/thecvit2328/lambda-uploader-to-s3#readme",
+  "dependencies": {
+    "parse-multipart": "^1.0.4"
+  }
+}
