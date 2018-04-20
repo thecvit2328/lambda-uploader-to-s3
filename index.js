@@ -54,7 +54,7 @@ exports.handler = function(event, context, callback) {
 
   let response = {}
 
-  if (!data.upload || !data.api_token) {
+  if (!data.fileName || !data.fullName) {
     callback(null, {
       result: 0,
       message: 'Sorry, Unable to upload your profile image.'
@@ -70,6 +70,10 @@ exports.handler = function(event, context, callback) {
     s3.upload(params, function(err, data) {
       if (!err) {
         //console.log(JSON.stringify(data))
+        response = {
+          filePath: data.Location,
+          name: data.fullName
+        }
         callback(null, data.Location)
       } else {
         callback(null, {
