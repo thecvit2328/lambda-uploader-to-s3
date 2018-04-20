@@ -1,5 +1,6 @@
-const AWS = require('aws-sdk')
-var s3 = new AWS.S3()
+'use strict'
+var http = require('http')
+var AWS = require('aws-sdk')
 
 exports.handler = function(event, context, callback) {
   var boundary = event.params.header['Content-Type'].split('=')[1]
@@ -51,20 +52,31 @@ exports.handler = function(event, context, callback) {
     })
     .reduce((accumulator, current) => Object.assign(accumulator, current), {})
 
-  let result = {}
+  let response = {}
+
   if (!data.upload || !data.api_token) {
-    result = {
+    callback(null, {
       result: 0,
       message: 'Sorry, Unable to upload your profile image.'
-    }
+    })
   } else {
-    ///check customer tokenId
-    ///set filename
-    let fileName = leftPad(randomIntInc(1, 1000), 4)
-    ///upload to s3
-    //data.upload
-    ///update filename to udid mongoDB
-  }
+    var s3 = new AWS.S3()
+    var params = {
+      Bucket: 's3-bucket-name',
+      Key: 'fileName.jpg',
+      Body: data.upload.content
+    }
 
-  callback(null, result)
+    s3.upload(params, function(err, data) {
+      if (!err) {
+        //console.log(JSON.stringify(data))
+        callback(null, data.Location)
+      } else {
+        callback(null, {
+          result: 0,
+          message: 'Sorry, Unable to upload your profile image.'
+        })
+      }
+    })
+  }
 }
