@@ -64,7 +64,7 @@ exports.handler = function(event, context, callback) {
     var params = {
       Bucket: 's3-bucket-name',
       Key: 'fileName.jpg',
-      Body: data.upload.content
+      Body: data.fileName.content
     }
 
     s3.upload(params, function(err, data) {
